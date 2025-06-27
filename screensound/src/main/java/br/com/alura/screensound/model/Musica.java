@@ -5,12 +5,19 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "musicas")
 public class Musica {
+    private String nomeMusica;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto incremental
     private Long id;
     private String titulo;
     @ManyToOne // Muitas musicas para um artista
     private Artista artista;
+
+    public Musica(){}
+
+    public Musica(String nomeMusica) {
+        this.titulo = nomeMusica;
+    }
 
     public Long getId() {
         return id;
@@ -39,6 +46,6 @@ public class Musica {
     @Override
     public String toString() {
         return  "Música='" + titulo + '\'' +
-                ", artista=" + artista;
+                ", artista=" + artista.getNome();
     }
 }

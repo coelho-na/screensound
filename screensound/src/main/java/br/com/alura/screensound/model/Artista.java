@@ -14,10 +14,17 @@ public class Artista {
     @Column(unique = true) // definindo o nome como único, não poderá ser inserido o mesmo artista duas vezes
     private String nome;
     @Enumerated(EnumType.STRING)
-    private tipoArtista tipo;
+    private TipoArtista tipo;
 
-@OneToMany(mappedBy = "artista") // Um artista para várias músicas
+@OneToMany(mappedBy = "artista", cascade = CascadeType.ALL, fetch = FetchType.EAGER) // Um artista para várias músicas
     private List<Musica> musicas = new ArrayList<>();
+
+    public Artista(){}
+
+    public Artista(String nome, TipoArtista tipo) {
+        this.nome = nome;
+        this.tipo = tipo;
+    }
 
     public Long getId() {
         return id;
@@ -43,11 +50,11 @@ public class Artista {
         this.nome = nome;
     }
 
-    public tipoArtista getTipo() {
+    public TipoArtista getTipo() {
         return tipo;
     }
 
-    public void setTipo(tipoArtista tipo) {
+    public void setTipo(TipoArtista tipo) {
         this.tipo = tipo;
     }
 
